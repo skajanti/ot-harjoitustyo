@@ -1,7 +1,7 @@
 # Matopeli
 
 ### Sovelluksen tarkoitus
-Sovelluksen tarkoitus on simuloida snake 1 -pelin toimintoa ja mahdollistaa laajennus snake 2 -pelin toimintohin.
+Sovelluksen tarkoitus on simuloida snake 1 -pelin toimintoa.
 
 ### Toiminnallisuudet
 * Snake 1 -pelin perustoiminnallisuudet: käärme liikkuu, kasvaa hedelmiä syödessä ja kuolee jos osuu itseensä tai seinään.

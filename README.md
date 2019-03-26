@@ -7,4 +7,6 @@
 [komentorivi](https://github.com/skajanti/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 [gitlog](https://github.com/skajanti/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
+[Määrittelydokumentti](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/vaatumusmaarittely.md)
+
 muutos

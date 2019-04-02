@@ -12,8 +12,8 @@ Sovellus on versio Snake 1 -pelistä.
 
 **Testaus**
 
-,,,
+```
 mvn test
-,,,
+```
 
 *jacoco tällä hetkellä rikki*

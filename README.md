@@ -1,12 +1,10 @@
-**OTSIKKO TODO**
+﻿**Snake**
 
-*Runko TODO*
+Sovellus on versio Snake 1 -pelistä.
 
-[TODO](https://www.helsinki.fi/fi)
-
-[komentorivi](https://github.com/skajanti/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-[gitlog](https://github.com/skajanti/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+*Dokumentaatio*
 
 [Määrittelydokumentti](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/vaatumusmaarittely.md)
 [Työkirjanpito](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/tyokirjanpito.md)
-muutos
+
+

@@ -35,5 +35,21 @@ public class GameMapTest {
         gamemap.initialize();
         assertEquals("right", gamemap.getDirection());
         assertTrue(gamemap.getHead(0)==17);
+        assertTrue(gamemap.getCell(0, 0) == -999);
+        assertTrue(gamemap.getCell(0, 31) == -999);
+        assertTrue(gamemap.getCell(31, 0) == -999);
+        assertTrue(gamemap.getCell(31, 31) == -999);
+        assertTrue(gamemap.getCell(15, 16) == 3);
     }
+    
+//    @Test
+//    public void moveTest(){
+//        gamemap.initialize();
+//        gamemap.move();
+//        assertTrue(gamemap.getCell(15, 16) == 0);
+//        assertTrue(gamemap.getHead(0) == 18);
+//        gamemap.setDirection("up");
+//        gamemap.move();
+//        assertTrue(gamemap.getHead(0) == 18);
+//    }
 }

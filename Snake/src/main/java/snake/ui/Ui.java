@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import snake.gamelogic.GameMap;
 
-public class ui extends Application{
+public class Ui extends Application {
     GameMap gamemap = new GameMap();
     
     final private double sceneWidth = 640;
@@ -30,45 +30,45 @@ public class ui extends Application{
     GameNode[][] gamefield = new GameNode[n][m];
     
     @Override
-    public void start (Stage window){
+    public void start(Stage window) {
         gamemap.initialize();
         Group root = new Group();
         
-        for (int i = 0; i <= 31; i++){
-            for (int j = 0; j <= 31; j++){
+        for (int i = 0; i <= 31; i++) {
+            for (int j = 0; j <= 31; j++) {
                 int cell = gamemap.getCell(i, j);
                 GameNode node;
-                if (cell == -500){
+                if (cell == -500) {
                     node = new GameNode("fruit", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
                     root.getChildren().add(node);
                     gamefield[i][j] = node;
-                } else if (cell > 0){
+                } else if (cell > 0) {
                     node = new GameNode("snake", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
                     root.getChildren().add(node);
                     gamefield[i][j] = node;
-                } else if (cell == -999){
+                } else if (cell == -999) {
                     node = new GameNode("wall", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
                     root.getChildren().add(node);
                     gamefield[i][j] = node;
                 }
             }
         }
-        Scene scene = new Scene( root, sceneWidth, sceneHeight);
+        Scene scene = new Scene(root, sceneWidth, sceneHeight);
 
-        window.setScene( scene);
+        window.setScene(scene);
         window.show();
     }
     
-    public static class GameNode extends StackPane{
-        public GameNode(String name, double x, double y, double width, double height){
+    public static class GameNode extends StackPane {
+        public GameNode(String name, double x, double y, double width, double height) {
             Rectangle rectangle;
             Circle circle;
             Text text;
             
-            if (name.equals("snake")){
+            if (name.equals("snake")) {
                 rectangle = new Rectangle(width, height);
                 getChildren().add(rectangle);
-            } else if (name.equals("fruit")){
+            } else if (name.equals("fruit")) {
                 circle = new Circle(width);
                 getChildren().add(circle);
             } else {
@@ -80,10 +80,10 @@ public class ui extends Application{
             setTranslateY(y);
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) {
 //        GameController gamecontroller = new GameController();
 //        
 //        gamecontroller.run();
-    launch(args);
+        launch(args);
     }
 }

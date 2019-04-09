@@ -51,17 +51,31 @@
                 <goals>
                   <goal>test</goal>
                 </goals>
-                <configuration>
-                  <argLine>-Xmx2048m</argLine>
-                </configuration>
               </execution>
             </executions>
             <configuration>
-              <argLine>-Xmx2048m</argLine>
+              <argLine>${argLine} -Xmx2048m</argLine>
                 <forkCount>1</forkCount>
                 <reuseForks>true</reuseForks>
             </configuration>
           </plugin>
+          <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.14.1</version>
+        <configuration>
+          <reuseForks>true</reuseForks>
+          <argLine>${argLine} -Xmx4096m -XX:MaxPermSize=512M ${itCoverageAgent}</argLine>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
         <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -86,6 +100,26 @@
                         <goal>check</goal>
                     </goals>
                 </execution>
+                <execution>
+                <id>prepare-integration-tests</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+                <configuration>
+                  <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                </configuration>
+              </execution>
+              <execution>
+                <id>jacoco-site</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+                <configuration>
+                  <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                </configuration>
+              </execution>
             </executions>
         </plugin>  
     <plugin>

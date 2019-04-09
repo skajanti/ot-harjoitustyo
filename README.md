@@ -8,6 +8,8 @@ Sovellus on versio Snake 1 -pelistä.
 
 [Työkirjanpito](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/tyokirjanpito.md)
 
+[Luokkakaavio](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/luokkakaavio.html)
+
 ### Komentorivikomennot
 
 **Testaus**

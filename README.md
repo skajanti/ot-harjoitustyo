@@ -8,7 +8,9 @@ Sovellus on versio Snake 1 -pelistä.
 
 [Työkirjanpito](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/tyokirjanpito.md)
 
-[Luokkakaavio](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/luokkakaavio.html)
+[Luokkakaavio ja sekvenssikaavio](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
+
 
 ### Komentorivikomennot
 
@@ -18,4 +20,21 @@ Sovellus on versio Snake 1 -pelistä.
 mvn test
 ```
 
-*jacoco tällä hetkellä rikki*
+**Testausraportti**
+
+```
+mvn jacoco:report
+```
+
+**Checkstyle**
+
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
+
+
+**Jar:in luonti**
+
+```
+mvn package
+```

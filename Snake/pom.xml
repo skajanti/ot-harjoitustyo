@@ -40,6 +40,7 @@
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
+            <version>2.3</version>
         </plugin>
         <plugin>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -59,23 +60,43 @@
                 <reuseForks>true</reuseForks>
             </configuration>
           </plugin>
-          <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.14.1</version>
-        <configuration>
-          <reuseForks>true</reuseForks>
-          <argLine>${argLine} -Xmx4096m -XX:MaxPermSize=512M ${itCoverageAgent}</argLine>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.14.1</version>
+            <configuration>
+              <reuseForks>true</reuseForks>
+              <argLine>${argLine} -Xmx4096m -XX:MaxPermSize=512M ${itCoverageAgent}</argLine>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+        </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>snake.ui.Ui</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
         <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -101,15 +122,15 @@
                     </goals>
                 </execution>
                 <execution>
-                <id>prepare-integration-tests</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-                <configuration>
-                  <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                </configuration>
-              </execution>
+                    <id>prepare-integration-tests</id>
+                    <phase>pre-integration-test</phase>
+                    <goals>
+                      <goal>prepare-agent</goal>
+                    </goals>
+                    <configuration>
+                      <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                    </configuration>
+                </execution>
               <execution>
                 <id>jacoco-site</id>
                 <phase>post-integration-test</phase>

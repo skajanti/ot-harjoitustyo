@@ -42,14 +42,22 @@ public class GameMapTest {
         assertTrue(gamemap.getCell(15, 16) == 3);
     }
     
-//    @Test
-//    public void moveTest(){
-//        gamemap.initialize();
-//        gamemap.move();
-//        assertTrue(gamemap.getCell(15, 16) == 0);
-//        assertTrue(gamemap.getHead(0) == 18);
-//        gamemap.setDirection("up");
-//        gamemap.move();
-//        assertTrue(gamemap.getHead(0) == 18);
-//    }
+    @Test
+    public void moveTest(){
+        gamemap.initialize();
+        gamemap.move();
+        assertTrue(gamemap.getCell(15, 16) == 0);
+        assertTrue(gamemap.getHead(0) == 18);
+        gamemap.setDirection("up");
+        gamemap.move();
+        assertTrue(gamemap.getHead(0) == 18);
+        gamemap.setDirection("down");
+        gamemap.move();
+        assertTrue(gamemap.getHead(1) == 16);
+        gamemap.setDirection("left");
+        gamemap.move();
+        assertTrue(gamemap.getHead(0) == 17);
+        gamemap.setDirection("blorp");
+        assertEquals("blorp", gamemap.getDirection());
+    }
 }

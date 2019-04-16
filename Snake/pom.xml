@@ -142,6 +142,11 @@
                 </configuration>
               </execution>
             </executions>
+              <configuration>
+                <excludes>
+                  <exclude>snake/ui/*</exclude>
+                </excludes>
+              </configuration> 
         </plugin>  
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>

@@ -33,12 +33,12 @@ public class GameMap {
     boolean endMethod;
     
     public boolean move() {
-        moveSnake();
         
         endMethod = moveHead();
         if (endMethod = false) {
             return false;
         }
+        moveSnake();
         return true;
     }
     

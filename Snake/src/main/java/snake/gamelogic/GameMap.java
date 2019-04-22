@@ -30,15 +30,17 @@ public class GameMap {
         addFruit();
     }
     
-    boolean endMethod;
     
     public boolean move() {
-        
+        boolean endMethod;
+        moveSnake();
         endMethod = moveHead();
-        if (endMethod = false) {
+        sideTeleport();
+        
+        if (endMethod == false) {
             return false;
         }
-        moveSnake();
+        
         return true;
     }
     
@@ -57,37 +59,41 @@ public class GameMap {
     }
     
     public boolean moveHead() {
+        boolean ret;
         if (direction.equals("right")) {
             head[0]++;
-            endMethod = checkWall();
+            ret = checkCollision();
             eatFruit();
             playgrid[head[0]][head[1]] = 1;
         } else if (direction.equals("down")) {
             head[1]++;
-            endMethod = checkWall();
+            ret = checkCollision();
             eatFruit();
             playgrid[head[0]][head[1]] = 1;
         } else if (direction.equals("left")) {
             head[0]--;
-            endMethod = checkWall();
+            ret = checkCollision();
             eatFruit();
             playgrid[head[0]][head[1]] = 1;
         } else if (direction.equals("up")) {
             head[1]--;
-            endMethod = checkWall();
+            ret = checkCollision();
             eatFruit();
             playgrid[head[0]][head[1]] = 1;
         } else {
             return false;
         }
-        if (endMethod = false) {
+        if (ret == false) {
             return false;
         }
+        
         return true;
     }
-    
-    public boolean checkWall() {
+   
+    public boolean checkCollision() {
         if (playgrid[head[0]][head[1]] == -999) {
+            return false;
+        } else if (playgrid[head[0]][head[1]] > 0) {
             return false;
         }
         return true;
@@ -115,6 +121,18 @@ public class GameMap {
         }
         
         playgrid [x][y] = -500;
+    }
+    
+    public void sideTeleport() {
+        if (head[0] == 31) {
+            head[0] = 0;
+        } else if (head[0] == 0) {
+            head[0] = 31;
+        } else if (head[1] == 31) {
+            head[1] = 0;
+        } else if (head[1] == 0) {
+            head[1] = 31;
+        }
     }
     
     public String getDirection() {

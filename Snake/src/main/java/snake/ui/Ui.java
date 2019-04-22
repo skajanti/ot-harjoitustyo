@@ -1,6 +1,8 @@
 package snake.ui;
 
-import javafx.animation.AnimationTimer;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.shape.Rectangle;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -11,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import snake.gamelogic.GameMap;
 
 public class Ui extends Application {
@@ -27,6 +30,8 @@ public class Ui extends Application {
     
     GameNode[][] gamefield = new GameNode[n][m];
     
+    Timeline timeline;
+    
     @Override
     public void start(Stage window) {
         gamemap.initialize();
@@ -34,61 +39,80 @@ public class Ui extends Application {
         
         Scene scene = new Scene(root, sceneWidth, sceneHeight);
         
-        new AnimationTimer() {
-            private long prev;
+        timeline = new Timeline(new KeyFrame(Duration.millis(150), event -> {
+            long prev = 0;
             
-            @Override
-            public void handle(long now) {
-                if (now - prev < 100_000_000L) {
-                    return;
-                }
                 
-                for (int i = 0; i <= 31; i++) {
-                    for (int j = 0; j <= 31; j++) {
-                        int cell = gamemap.getCell(i, j);
-                        GameNode node;
-                        if (cell == -500) {
-                            node = new GameNode("fruit", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
-                            root.getChildren().add(node);
-                            gamefield[i][j] = node;
-                        } else if (cell > 0) {
-                            node = new GameNode("snake", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
-                            root.getChildren().add(node);
-                            gamefield[i][j] = node;
-                        } else if (cell == -999) {
-                            node = new GameNode("wall", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
-                            root.getChildren().add(node);
-                            gamefield[i][j] = node;
-                        } else {
-                            node = new GameNode("empty", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
-                            root.getChildren().add(node);
-                            gamefield[i][j] = node;
-                        }
+            for (int i = 0; i <= 31; i++) {
+                for (int j = 0; j <= 31; j++) {
+                    int cell = gamemap.getCell(i, j);
+                    GameNode node;
+                    if (cell == -500) {
+                        node = new GameNode("fruit", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+                        root.getChildren().add(node);
+                        gamefield[i][j] = node;
+                    } else if (cell > 0) {
+                        node = new GameNode("snake", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+                        root.getChildren().add(node);
+                        gamefield[i][j] = node;
+                    } else if (cell == -999) {
+                        node = new GameNode("wall", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+                        root.getChildren().add(node);
+                        gamefield[i][j] = node;
+                    } else {
+                        node = new GameNode("empty", i * gridWidth, j * gridHeight, gridWidth, gridHeight);
+                        root.getChildren().add(node);
+                        gamefield[i][j] = node;
                     }
                 }
-                
-                scene.setOnKeyPressed(event -> {
-                    if (event.getCode() == KeyCode.LEFT) {
-                        gamemap.setDirection("left");
-                    }
-
-                    if (event.getCode() == KeyCode.RIGHT) {
-                        gamemap.setDirection("right");
-                    }
-                    
-                    if (event.getCode() == KeyCode.UP) {
-                        gamemap.setDirection("up");
-                    }
-                    
-                    if (event.getCode() == KeyCode.DOWN) {
-                        gamemap.setDirection("down");
-                    }
-                });
-                
-                gamemap.move();
             }
-        }.start();
+                
+                
+                
+            boolean b = gamemap.move();
+            if (b == false) {
+                timeline.stop();
+                window.close();
+            }
+                
+            }));
         
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.LEFT) {
+                boolean b = check180("left", gamemap.getDirection());
+                
+                if (b == true) {
+                    gamemap.setDirection("left");
+                }
+            }
+
+            if (event.getCode() == KeyCode.RIGHT) {
+                boolean b = check180("right", gamemap.getDirection());
+                
+                if (b == true) {
+                    gamemap.setDirection("right");
+                }
+            }
+
+            if (event.getCode() == KeyCode.UP) {
+                boolean b = check180("up", gamemap.getDirection());
+                
+                if (b == true) {
+                    gamemap.setDirection("up");
+                }
+            }
+
+            if (event.getCode() == KeyCode.DOWN) {
+                boolean b = check180("down", gamemap.getDirection());
+                
+                if (b == true) {
+                    gamemap.setDirection("down");
+                }
+            }
+        });
+        
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
         window.setScene(scene);
         window.show();
@@ -121,6 +145,21 @@ public class Ui extends Application {
             setTranslateY(y);
         }
     }
+    
+    public boolean check180(String dir, String getdir) {
+        if (dir.equals("right") && getdir.equals("left")) {
+            return false;
+        } else if (dir.equals("left") && getdir.equals("right")) {
+            return false;
+        } else if (dir.equals("up") && getdir.equals("down")) {
+            return false;
+        } else if (dir.equals("down") && getdir.equals("up")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }

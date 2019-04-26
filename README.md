@@ -15,6 +15,8 @@ Sovellus on versio Snake 1 -pelistä.
 
 [Viikko 5](https://github.com/skajanti/ot-harjoitustyo/releases/tag/viikko5)
 
+[Viikko 6](https://github.com/skajanti/ot-harjoitustyo/releases/tag/prerelease)
+
 
 ### Komentorivikomennot
 

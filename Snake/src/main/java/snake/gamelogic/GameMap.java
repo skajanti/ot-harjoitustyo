@@ -2,12 +2,18 @@ package snake.gamelogic;
 
 import java.util.Random;
 
+/**
+ * This class controls the main gameboard.
+ */
 public class GameMap {
     int[][] playgrid = new int[32][32];
     int snakeLength;
     public String direction;
     int[] head = new int[2];
     
+    /**
+     * Initializes the board for use. Creates the snake, a fruit and the walls.
+     */
     public void initialize() {
         for (int i = 0; i <= 31; i++) {
             playgrid[0][i] = -999;
@@ -30,7 +36,13 @@ public class GameMap {
         addFruit();
     }
     
-    
+    /**
+     * Moves the snake in the set direction.
+     * 
+     * @see snake.ui.Ui#start(Stage window)
+     * 
+     * @return Returns false if the snake hits a wall or itself, or if the direction is invalid. Otherwise returns true.
+     */
     public boolean move() {
         boolean endMethod;
         moveSnake();
@@ -44,6 +56,9 @@ public class GameMap {
         return true;
     }
     
+    /**
+     * Incriments the age of the snake's body segments.
+     */
     public void moveSnake() {
         for (int i = 0; i <= 31; i++) {
             for (int j = 0; j <= 31; j++) {
@@ -58,6 +73,11 @@ public class GameMap {
         }
     }
     
+    /**
+     * Moves the head of the snake, and checks for fruit and collisions.
+     * 
+     * @return Returns false in case of collision or invalid direction, otherwise returns true.
+     */
     public boolean moveHead() {
         boolean ret;
         if (direction.equals("right")) {
@@ -90,6 +110,10 @@ public class GameMap {
         return true;
     }
    
+    /**
+     * Checks if head has collided with wall or snake.
+     * @return Returns false if collision occurs.
+     */
     public boolean checkCollision() {
         if (playgrid[head[0]][head[1]] == -999) {
             return false;
@@ -99,6 +123,9 @@ public class GameMap {
         return true;
     }
     
+    /**
+     * Checks for fruit at the location of the head. If found, increases length of snake and creates a new fruit.
+     */
     public void eatFruit() {
         if (playgrid[head[0]][head[1]] == -500) {
             snakeLength++;
@@ -106,6 +133,9 @@ public class GameMap {
         }
     }
     
+    /**
+     * Creates a fruit in an unoccupied tile.
+     */
     public void addFruit() {
         int x;
         int y;
@@ -123,6 +153,9 @@ public class GameMap {
         playgrid [x][y] = -500;
     }
     
+    /**
+     * Teleports the head of the snake from one end of the map to the other to prevent overflow.
+     */
     public void sideTeleport() {
         if (head[0] == 31) {
             head[0] = 0;
@@ -135,18 +168,37 @@ public class GameMap {
         }
     }
     
+    /**
+     * @return Returns the direction the snake is facing.
+     */
     public String getDirection() {
         return direction;
     }
     
+    /**
+     * @param dir Sets the direction the snake is facing.
+     */
     public void setDirection(String dir) {
         direction = dir;
     }
     
+    /**
+     * Gets the location of the snake's head, which is used to check for collisions and fruit.
+     * 
+     * @param i 0 is x-axis, 1 is y-axis.
+     * @return Returns the location of the head on the provided axis.
+     */
     public int getHead(int i) {
         return head[i];
     }
     
+    /**
+     * Gets the value of a tile.
+     * 
+     * @param i x-axis
+     * @param j y-axis
+     * @return Returns the value of a tile.
+     */
     public int getCell(int i, int j) {
         return playgrid[i][j];
     }

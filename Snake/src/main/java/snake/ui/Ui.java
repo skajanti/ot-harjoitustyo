@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import snake.gamelogic.GameMap;
 
+/**
+ * For now the main scene, displays the gameboard.
+ * @author seppo
+ */
 public class Ui extends Application {
     GameMap gamemap = new GameMap();
     
@@ -32,6 +36,10 @@ public class Ui extends Application {
     
     Timeline timeline;
     
+    /**
+     * Standard javafx with timeline.
+     * @param window 
+     */
     @Override
     public void start(Stage window) {
         gamemap.initialize();
@@ -118,6 +126,10 @@ public class Ui extends Application {
         window.show();
     }
     
+    /**
+     * The gameboard is drawn as a grid composed of tiles, a rectangle for a snake segment, 
+     * a circle for fruit, an x for a wall, and a blank space for empty space.
+     */
     public static class GameNode extends StackPane {
         public GameNode(String name, double x, double y, double width, double height) {
             Rectangle rectangle;
@@ -146,6 +158,13 @@ public class Ui extends Application {
         }
     }
     
+    /**
+     * Prevents the snake from doing a 180 degree turn, which would kill it instantly.
+     * 
+     * @param dir The direction from the input.
+     * @param getdir The snake's current direction.
+     * @return Returns false if the turn is forbidden.
+     */
     public boolean check180(String dir, String getdir) {
         if (dir.equals("right") && getdir.equals("left")) {
             return false;
@@ -160,6 +179,10 @@ public class Ui extends Application {
         }
     }
     
+    /**
+     * Main.
+     * @param args 
+     */
     public static void main(String[] args) {
         launch(args);
     }

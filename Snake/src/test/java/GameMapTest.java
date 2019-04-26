@@ -60,4 +60,23 @@ public class GameMapTest {
         gamemap.setDirection("blorp");
         assertEquals("blorp", gamemap.getDirection());
     }
+    
+    @Test
+    public void checkCollisionTest() {
+        gamemap.initialize();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        gamemap.move();
+        assertFalse(gamemap.move());
+    }
 }

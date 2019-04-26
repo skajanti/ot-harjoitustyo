@@ -8,7 +8,7 @@ Sovellus on versio Snake 1 -pelistä.
 
 [Työkirjanpito](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/tyokirjanpito.md)
 
-[Luokkakaavio ja sekvenssikaavio](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+[Arkkitehtuuri](https://github.com/skajanti/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 
 ### Releaset

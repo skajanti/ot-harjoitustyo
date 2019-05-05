@@ -1,14 +1,25 @@
 package snake.ui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.shape.Rectangle;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -35,6 +46,10 @@ public class Ui extends Application {
     GameNode[][] gamefield = new GameNode[n][m];
     
     Timeline timeline;
+    Scene gameScene;
+    Scene startScene;
+    
+    int difficulty = 200;
     
     /**
      * Standard javafx with timeline.
@@ -42,12 +57,43 @@ public class Ui extends Application {
      */
     @Override
     public void start(Stage window) {
+        
+        VBox initPane = new VBox(10);
+        HBox diffPane = new HBox(10);
+        Button startButton = new Button("Start");
+        
+        initPane.setPadding(new Insets(10));
+        
+        Label diffLabel = new Label("Difficulty");
+        TextField diffInput = new TextField();
+        Label diffExpLabel = new Label("Difficulty accepts single integer"
+                + " inputs\n from 1 to 9, otherwise defaults to 1");
+        
+        initPane.getChildren().addAll(diffPane, diffExpLabel, startButton);
+        diffPane.getChildren().addAll(diffLabel, diffInput);
+        
+        startButton.setOnAction(e -> {
+           int diff = Integer.parseInt(diffInput.getText());
+           
+           if (1 <= diff && diff <= 9){
+               difficulty = 1000 - (diff * 100);
+           }
+           
+           window.setScene(gameScene);
+           timeline.play();
+        });
+        
+        startScene = new Scene(initPane, 250, 170);
+        window.setScene(startScene);
+        window.show();
+        
+        
         gamemap.initialize();
         Group root = new Group();
         
-        Scene scene = new Scene(root, sceneWidth, sceneHeight);
-        
-        timeline = new Timeline(new KeyFrame(Duration.millis(150), event -> {
+        gameScene = new Scene(root, sceneWidth, sceneHeight);
+        int dif = difficulty;
+        timeline = new Timeline(new KeyFrame(Duration.millis(dif), event -> {
             long prev = 0;
             
                 
@@ -83,9 +129,9 @@ public class Ui extends Application {
                 window.close();
             }
                 
-            }));
+        }));
         
-        scene.setOnKeyPressed(event -> {
+        gameScene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.LEFT) {
                 boolean b = check180("left", gamemap.getDirection());
                 
@@ -120,10 +166,6 @@ public class Ui extends Application {
         });
         
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
-
-        window.setScene(scene);
-        window.show();
     }
     
     /**

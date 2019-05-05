@@ -202,4 +202,11 @@ public class GameMap {
     public int getCell(int i, int j) {
         return playgrid[i][j];
     }
+    
+    /**
+     * @return Returns the length of the snake (for high score).
+     */
+    public int getLength() {
+        return snakeLength;
+    }
 }
